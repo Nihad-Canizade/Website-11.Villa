@@ -75,6 +75,7 @@ function topFunction() {
 // Section 4 JSON
 let sec4Boxs = document.querySelector('.sec4-boxs');
 let page = 3;
+let search = document.querySelector("input[type=search]");
 
 function getDataJson() {
     fetch('http://localhost:3000/boxs')
@@ -82,6 +83,7 @@ function getDataJson() {
         .then(data => {
             data.slice(page - 3, page).forEach(element => {
                 sec4Boxs.innerHTML += `
+                
             <div class="sec4-box">
             <i class="bi bi-heart-fill box-heart" onclick = "addFavorite(${element.id})"></i>    
             <img src="${element.image}" alt="Image">
@@ -94,9 +96,33 @@ function getDataJson() {
             </div>
         </div>`
             })
+
+            // Search Function
+            search.addEventListener("input", (e) => {
+                let filter = data.filter((el) => {
+                    return el.description.startsWith(e.target.value);
+                });
+                sec4Boxs.innerHTML = "";
+                filter.forEach(element => {
+                    sec4Boxs.innerHTML += `
+                    <div class="sec4-box">
+                    <i class="bi bi-heart-fill box-heart" onclick = "addFavorite(${element.id})"></i>    
+                    <img src="${element.image}" alt="Image">
+                    <p class="sec4-box-p1">${element.date}</p>
+                    <p class="sec4-box-p2">${element.description}</p>
+                    <div class = "sec4-box-btns">
+                    <button><a href = "./view.html?id=${element.id}">View Details</a></button>
+                    <button><a href = "./update.html?id=${element.id}">Update</a></button>
+                    <button onclick = "boxDelete(${element.id})">Delete</button>
+                    </div>
+                </div>`
+                })
+            })
         })
 }
 getDataJson();
+
+
 
 
 // Load More function
