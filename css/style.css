@@ -562,11 +562,16 @@
   max-width: 700px;
 }
 
-.section4 .sec4-in .search-input {
+.section4 .sec4-in .search-sort-f .search-input {
   padding: 12px 120px 12px 20px;
   margin-bottom: 3rem;
   border: 1px solid #c2c2c2;
   border-radius: 15px;
+}
+
+.section4 .sec4-in .search-sort-f .sort-select {
+  margin-left: 2rem;
+  padding: 2px 8px;
 }
 
 .section4 .sec4-in .sec4-boxs {
@@ -582,13 +587,13 @@
           align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  margin: 20px 0px;
 }
 
 .section4 .sec4-in .sec4-boxs .sec4-box {
   width: 32%;
   background-color: white;
   position: relative;
-  margin-bottom: 30px;
 }
 
 .section4 .sec4-in .sec4-boxs .sec4-box .box-heart {

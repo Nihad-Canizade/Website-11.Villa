@@ -17,7 +17,6 @@ menuIcon.addEventListener('click', () => {
     bar1.classList.toggle("for-bgcolor");
     bar3.classList.toggle("for-bgcolor");
 
-
     if (navSection.style.display == "block") {
         navSection.style.display = "none";
     } else {
@@ -76,14 +75,42 @@ function topFunction() {
 let sec4Boxs = document.querySelector('.sec4-boxs');
 let page = 3;
 let search = document.querySelector("input[type=search]");
+let sort = document.getElementById('sort');
+let info = [];
+
 
 function getDataJson() {
+
+    // Sort Function
+    const writeNames = (arr) => {
+        sec4Boxs.innerHTML = '';
+        arr.forEach(element => {
+            sec4Boxs.innerHTML += `<h1>${element.description}</h1>`
+        })
+    }
+
+    sort.addEventListener('change', (e) => {
+        let infoClone = [...info];
+
+        if (e.target.value == 'a-z') {
+            let sortAz = infoClone.sort((a, b) => a.description.localeCompare(b.description));
+            writeNames(sortAz);
+        } else if (e.target.value == 'z-a') {
+            let sortZa = infoClone.sort((a, b) => b.description.localeCompare(a.description));
+            writeNames(sortZa);
+        } else {
+            writeNames(info);
+        }
+    })
+
+    // Fetch all
     fetch('http://localhost:3000/boxs')
         .then(response => response.json())
         .then(data => {
+            info = data;
+            writeNames(info);
             data.slice(page - 3, page).forEach(element => {
                 sec4Boxs.innerHTML += `
-                
             <div class="sec4-box">
             <i class="bi bi-heart-fill box-heart" onclick = "addFavorite(${element.id})"></i>    
             <img src="${element.image}" alt="Image">
