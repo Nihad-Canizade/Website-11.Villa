@@ -17,24 +17,6 @@
       "image": "./images/s2-box3-img.webp",
       "date": "FEBRUARY 26, 2018",
       "description": "Three Reasons to Stay at Villa Resort"
-    },
-    {
-      "id": 4,
-      "image": "./images/s2-box2-img.webp",
-      "date": "FEBRUARY 26, 2018",
-      "description": "Four Reasons to Stay at Villa Resort"
-    },
-    {
-      "id": 5,
-      "image": "./images/s2-box3-img.webp",
-      "date": "FEBRUARY 26, 2018",
-      "description": "Five Reasons to Stay at Villa Resort"
-    },
-    {
-      "id": 6,
-      "image": "./images/s2-box1-img.webp",
-      "date": "FEBRUARY 26, 2018",
-      "description": "Six Reasons to Stay at Villa Resort"
     }
   ],
   "favorites": []

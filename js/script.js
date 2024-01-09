@@ -80,49 +80,38 @@ let info = [];
 
 
 function getDataJson() {
-
-    // Sort Function
-    const writeNames = (arr) => {
-        sec4Boxs.innerHTML = '';
-        arr.forEach(element => {
-            sec4Boxs.innerHTML += `<h1>${element.description}</h1>`
-        })
-    }
-
-    sort.addEventListener('change', (e) => {
-        let infoClone = [...info];
-
-        if (e.target.value == 'a-z') {
-            let sortAz = infoClone.sort((a, b) => a.description.localeCompare(b.description));
-            writeNames(sortAz);
-        } else if (e.target.value == 'z-a') {
-            let sortZa = infoClone.sort((a, b) => b.description.localeCompare(a.description));
-            writeNames(sortZa);
-        } else {
-            writeNames(info);
-        }
-    })
-
     // Fetch all
     fetch('http://localhost:3000/boxs')
         .then(response => response.json())
         .then(data => {
-            info = data;
-            writeNames(info);
-            data.slice(page - 3, page).forEach(element => {
+            sec4Boxs.innerHTML = "";
+            info = info.length ? info : data;
+            info.forEach(element => {
                 sec4Boxs.innerHTML += `
-            <div class="sec4-box">
-            <i class="bi bi-heart-fill box-heart" onclick = "addFavorite(${element.id})"></i>    
-            <img src="${element.image}" alt="Image">
-            <p class="sec4-box-p1">${element.date}</p>
-            <p class="sec4-box-p2">${element.description}</p>
-            <div class = "sec4-box-btns">
-            <button><a href = "./view.html?id=${element.id}">View Details</a></button>
-            <button><a href = "./update.html?id=${element.id}">Update</a></button>
-            <button onclick = "boxDelete(${element.id})">Delete</button>
-            </div>
-        </div>`
-            })
+                <div class="sec4-box">
+                <i class="bi bi-heart-fill box-heart" onclick = "addFavorite(${element.id})"></i>    
+                <img src="${element.image}" alt="Image">
+                <p class="sec4-box-p1">${element.date}</p>
+                <p class="sec4-box-p2">${element.description}</p>
+                <div class = "sec4-box-btns">
+                <button><a href = "./view.html?id=${element.id}">View Details</a></button>
+                <button><a href = "./update.html?id=${element.id}">Update</a></button>
+                <button onclick = "boxDelete(${element.id})">Delete</button>
+                </div>
+            </div>`
+            });
+
+            // Sort Function
+            sort.addEventListener('change', (e) => {
+                if (e.target.value == 'a-z') {
+                    info = info.sort((a, b) => a.description.localeCompare(b.description));
+                } else if (e.target.value == 'z-a') {
+                    info = info.sort((a, b) => b.description.localeCompare(a.description));
+                } else {
+                    info = [];
+                }
+                getDataJson();
+            });
 
             // Search Function
             search.addEventListener("input", (e) => {
@@ -148,16 +137,6 @@ function getDataJson() {
         })
 }
 getDataJson();
-
-
-
-
-// Load More function
-let loadMoreBtn = document.querySelector(".loadmore-btn");
-loadMoreBtn.addEventListener('click', () => {
-    page += 3;
-    getDataJson();
-})
 
 
 // Boxs delete function
